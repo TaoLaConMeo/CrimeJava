@@ -1,0 +1,62 @@
+USE crime_management_project;
+
+-- Tạo bảng Crime
+CREATE TABLE Crime(
+    crimeid INT PRIMARY KEY AUTO_INCREMENT,
+    dateofcrime DATE NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    policeStationId INT NOT NULL,
+    detailDescription VARCHAR(200) NOT NULL,
+    status VARCHAR(20) NOT NULL
+);
+
+-- Chèn dữ liệu mẫu vào bảng Crime
+INSERT INTO Crime VALUES(1 ,'2024-05-15','Theft',11,'three bikes','Solved');
+
+-- Tạo bảng Criminal
+CREATE TABLE Criminal(
+    criminalid INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    gender VARCHAR(10) NOT NULL,
+    address VARCHAR(10) NOT NULL,
+    policeStationId INT NOT NULL,
+    mark VARCHAR(255) NOT NULL
+);
+
+-- Chèn dữ liệu mẫu vào bảng Criminal
+INSERT INTO Criminal VALUES(1, 'Truong', 20, 'Male', '123 Binh Thanh', 11, 'Have glasses');
+
+-- Tạo bảng Criminals_of_Crime
+CREATE TABLE Criminals_of_Crime(
+    criminalid INT,
+    crimeid INT,
+    FOREIGN KEY (criminalid) REFERENCES Criminal(criminalid),
+    FOREIGN KEY (crimeid) REFERENCES Crime(crimeid)
+);
+
+-- Chèn dữ liệu mẫu vào bảng Criminals_of_Crime
+INSERT INTO Criminals_of_Crime VALUES(1, 1);
+
+-- Tạo bảng Victim
+CREATE TABLE Victim(
+    victimid INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    gender VARCHAR(10) NOT NULL,
+    address VARCHAR(10) NOT NULL
+);
+
+-- Tạo bảng Victim_of_Crime
+CREATE TABLE Victim_of_Crime(
+    victimid INT,
+    crimeid INT,
+    FOREIGN KEY (victimid) REFERENCES Victim(victimid),
+    FOREIGN KEY (crimeid) REFERENCES Crime(crimeid)
+);
+
+-- Tạo bảng Police_Station
+CREATE TABLE Police_Station(
+    policestationname VARCHAR(255),
+    policestationid INT 
+);
